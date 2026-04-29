@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Amra",
+    "slug": "amra-app",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "amra",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.amra.lore"
+    },
+    "android": {
+      "package": "app.amra.lore",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
