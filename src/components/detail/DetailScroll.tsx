@@ -74,7 +74,7 @@ export function DetailScroll({ tome }: Props) {
     return unsub;
   }, [navigation]);
 
-  const heroHeight = Math.min(height * 0.7, 620);
+  const heroHeight = Math.min(height * 0.34, 320);
   const splashHeight = 280;
 
   const hasFacts = !!(tome.overview.callouts && tome.overview.callouts.length > 0);
@@ -158,7 +158,6 @@ export function DetailScroll({ tome }: Props) {
           <View onLayout={onSectionLayout("history")}>
             <SectionLayout
               label="HISTORY"
-              title={tome.kind === "region" ? "Origins" : "Account"}
               body={
                 <View style={styles.proseBlock}>
                   {overview.history!.map((p, i) => (
@@ -176,7 +175,6 @@ export function DetailScroll({ tome }: Props) {
           <View onLayout={onSectionLayout("construction")}>
             <SectionLayout
               label="POWER & PEOPLE"
-              title="Houses and figures"
               body={
                 <View style={styles.proseBlock}>
                   {overview.construction!.map((p, i) => (
@@ -194,7 +192,6 @@ export function DetailScroll({ tome }: Props) {
           <View onLayout={onSectionLayout("location")}>
             <SectionLayout
               label="PLACES"
-              title="Where the realm lives"
               body={
                 <View style={styles.proseBlock}>
                   {overview.location!.map((p, i) => (

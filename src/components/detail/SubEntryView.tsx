@@ -67,7 +67,7 @@ export function SubEntryView({ entry, tome, index }: Props) {
     () => tome.subEntries.filter((e) => e.group === entry.title),
     [tome.subEntries, entry.title],
   );
-  const heroH = Math.min(height * 0.55, 480);
+  const heroH = Math.min(height * 0.34, 300);
   const heroAnim = useAnimatedStyle(() => {
     const opacity = interpolate(scrollY.value, [0, heroH], [1, 0.3], Extrapolation.CLAMP);
     const ty = interpolate(scrollY.value, [0, heroH], [0, -heroH * 0.25], Extrapolation.CLAMP);
@@ -113,7 +113,7 @@ export function SubEntryView({ entry, tome, index }: Props) {
 
         {entry.history ? (
           <View style={styles.section}>
-            <Text style={styles.sectionLabel}>ACCOUNT</Text>
+            <Text style={styles.sectionLabel}>HISTORY</Text>
             {entry.history.map((p, i) => (
               <Text key={i} style={styles.prose}>
                 {p}
@@ -185,9 +185,9 @@ const makeStyles = (palette: Palette) =>
     heroOuter: {
       width: "100%",
       alignItems: "flex-start",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
       paddingHorizontal: space.xl,
-      paddingBottom: space.huge,
+      paddingTop: space.giant + space.md,
     },
     heroInner: { alignItems: "flex-start", gap: space.xs },
     kicker: { ...type.label, color: palette.textMuted, marginBottom: space.sm },
