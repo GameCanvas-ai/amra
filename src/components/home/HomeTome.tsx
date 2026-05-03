@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import { useTheme } from "../../theme/useTheme";
 import { useHaptics } from "../../hooks/useHaptics";
 import type { HomeSpread as HomeSpreadData } from "../../types/lore";
+import { getHeroImage } from "../../data/heroImages";
 import { HeroSpread } from "./HeroSpread";
 import { PageIndicator } from "./PageIndicator";
 
@@ -78,17 +79,22 @@ export function HomeTome({ spreads }: Props) {
             onMomentumScrollEnd={onMomentumScrollEnd}
             scrollEventThrottle={16}
           >
-            {spreads.map((spread, i) => (
-              <HeroSpread
-                key={spread.id}
-                spread={spread}
-                index={i}
-                total={spreads.length}
-                scrollY={scrollY}
-                pageHeight={pageHeight}
-                onOpen={() => handleOpen(spread)}
-              />
-            ))}
+            {spreads.map((spread, i) => {
+              const imageKey = spread.routeGazetteer ? "gazetteer" : spread.routeTomeId;
+              const heroImage = getHeroImage(imageKey);
+              return (
+                <HeroSpread
+                  key={spread.id}
+                  spread={spread}
+                  index={i}
+                  total={spreads.length}
+                  scrollY={scrollY}
+                  pageHeight={pageHeight}
+                  onOpen={() => handleOpen(spread)}
+                  {...(heroImage ? { heroImage } : {})}
+                />
+              );
+            })}
           </Animated.ScrollView>
 
           <PageIndicator total={spreads.length} pageHeight={pageHeight} scrollY={scrollY} />

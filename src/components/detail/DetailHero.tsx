@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, type ImageSourcePropType, StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -16,9 +16,10 @@ type Props = {
   kicker: string;
   scrollY: SharedValue<number>;
   height: number;
+  heroImage?: ImageSourcePropType;
 };
 
-export function DetailHero({ title, subTitle, kicker, scrollY, height }: Props) {
+export function DetailHero({ title, subTitle, kicker, scrollY, height, heroImage }: Props) {
   const { palette } = useTheme();
   const styles = useMemo(() => makeStyles(palette), [palette]);
 
@@ -28,8 +29,20 @@ export function DetailHero({ title, subTitle, kicker, scrollY, height }: Props) 
     return { opacity, transform: [{ translateY }] };
   });
 
+  const imageStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(scrollY.value, [0, height * 0.6, height], [1, 0.4, 0], Extrapolation.CLAMP);
+    const translateY = interpolate(scrollY.value, [0, height], [0, -height * 0.15], Extrapolation.CLAMP);
+    return { opacity, transform: [{ translateY }] };
+  });
+
   return (
     <View style={[styles.outer, { height, pointerEvents: "none" }]}>
+      {heroImage ? (
+        <Animated.View style={[StyleSheet.absoluteFill, imageStyle]} pointerEvents="none">
+          <Image source={heroImage} style={StyleSheet.absoluteFill} resizeMode="cover" />
+          <View style={styles.imageOverlay} />
+        </Animated.View>
+      ) : null}
       <Animated.View style={[styles.inner, heroStyle]}>
         <Text style={styles.kicker}>{kicker}</Text>
         <Text style={styles.title}>{title}</Text>
@@ -66,5 +79,9 @@ const makeStyles = (palette: Palette) =>
       ...type.subtitle,
       color: palette.textSecondary,
       marginTop: space.xs,
+    },
+    imageOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: "rgba(14, 15, 18, 0.55)",
     },
   });

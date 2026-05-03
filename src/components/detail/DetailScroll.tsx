@@ -13,6 +13,7 @@ import { space, type, type Palette } from "../../theme/tokens";
 import { useTheme } from "../../theme/useTheme";
 import { useHaptics } from "../../hooks/useHaptics";
 import type { Tome } from "../../types/lore";
+import { getHeroImage } from "../../data/heroImages";
 import { Callouts } from "./Callouts";
 import { DetailHero } from "./DetailHero";
 import { PullQuoteSplash } from "./PullQuoteSplash";
@@ -119,6 +120,7 @@ export function DetailScroll({ tome }: Props) {
 
   const kicker = tome.kind === "region" ? "REGION" : `CHAPTER ${tome.order.toString().padStart(2, "0")}`;
   const overview = tome.overview;
+  const heroImage = getHeroImage(tome.id);
 
   return (
     <View style={styles.root}>
@@ -146,6 +148,7 @@ export function DetailScroll({ tome }: Props) {
           kicker={kicker}
           scrollY={scrollY}
           height={heroHeight}
+          {...(heroImage ? { heroImage } : {})}
         />
 
         {hasFacts ? (

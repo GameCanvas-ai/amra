@@ -10,7 +10,6 @@ export type Entry = {
   history?: [string] | [string, string];
   construction?: [string] | [string, string];
   location?: [string] | [string, string];
-  heroImage?: string;
 };
 
 export type TomeKind = "chapter" | "region";

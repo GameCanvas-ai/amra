@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, type ImageSourcePropType, Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -18,9 +18,10 @@ type Props = {
   scrollY: SharedValue<number>;
   pageHeight: number;
   onOpen: () => void;
+  heroImage?: ImageSourcePropType;
 };
 
-export function HeroSpread({ spread, index, total, scrollY, pageHeight, onOpen }: Props) {
+export function HeroSpread({ spread, index, total, scrollY, pageHeight, onOpen, heroImage }: Props) {
   const { palette } = useTheme();
   const haptics = useHaptics();
   const styles = useMemo(() => makeStyles(palette), [palette]);
@@ -41,12 +42,25 @@ export function HeroSpread({ spread, index, total, scrollY, pageHeight, onOpen }
     return { opacity };
   });
 
+  const imageStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(scrollY.value, range, [0, 1, 0], Extrapolation.CLAMP);
+    const translateY = interpolate(scrollY.value, range, [pageHeight * 0.12, 0, -pageHeight * 0.12], Extrapolation.CLAMP);
+    return { opacity, transform: [{ translateY }] };
+  });
+
   const indexLabel = String(index + 1).padStart(2, "0");
   const totalLabel = String(total).padStart(2, "0");
   const kicker = spread.routeGazetteer ? "ATLAS" : `CHAPTER ${indexLabel} OF ${totalLabel}`;
 
   return (
     <View style={[styles.page, { height: pageHeight }]}>
+      {heroImage ? (
+        <Animated.View style={[StyleSheet.absoluteFill, imageStyle]} pointerEvents="none">
+          <Image source={heroImage} style={StyleSheet.absoluteFill} resizeMode="cover" />
+          <View style={styles.imageOverlay} />
+        </Animated.View>
+      ) : null}
+
       <Animated.View style={[styles.chrome, styles.chromeTop, chromeStyle]}>
         <View />
         <Text style={styles.label}>
@@ -104,6 +118,10 @@ const makeStyles = (palette: Palette) =>
     },
     chromeTop: {},
     chromeBottom: {},
+    imageOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: "rgba(14, 15, 18, 0.55)",
+    },
     heroButton: {
       flex: 1,
       justifyContent: "center",
