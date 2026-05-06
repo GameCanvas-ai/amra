@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Image, type ImageSourcePropType, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -10,6 +10,8 @@ import { space, type, type Palette } from "../../theme/tokens";
 import { useTheme } from "../../theme/useTheme";
 import { useHaptics } from "../../hooks/useHaptics";
 import type { HomeSpread as HomeSpreadData } from "../../types/lore";
+import { FocalImage } from "../primitives/FocalImage";
+import type { HeroImage } from "../../data/heroImages";
 
 type Props = {
   spread: HomeSpreadData;
@@ -18,7 +20,7 @@ type Props = {
   scrollY: SharedValue<number>;
   pageHeight: number;
   onOpen: () => void;
-  heroImage?: ImageSourcePropType;
+  heroImage?: HeroImage;
 };
 
 export function HeroSpread({ spread, index, total, scrollY, pageHeight, onOpen, heroImage }: Props) {
@@ -56,7 +58,7 @@ export function HeroSpread({ spread, index, total, scrollY, pageHeight, onOpen, 
     <View style={[styles.page, { height: pageHeight }]}>
       {heroImage ? (
         <Animated.View style={[StyleSheet.absoluteFill, imageStyle]} pointerEvents="none">
-          <Image source={heroImage} style={StyleSheet.absoluteFill} resizeMode="cover" />
+          <FocalImage source={heroImage.source} {...(heroImage.focal ? { focal: heroImage.focal } : {})} />
           <View style={styles.imageOverlay} />
         </Animated.View>
       ) : null}

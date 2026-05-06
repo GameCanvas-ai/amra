@@ -4,10 +4,13 @@ import { useRouter } from "expo-router";
 
 import { ScreenFrame } from "../../src/components/primitives/ScreenFrame";
 import { Hairline } from "../../src/components/primitives/Hairline";
+import { FocalImage } from "../../src/components/primitives/FocalImage";
 import { HamburgerButton } from "../../src/components/nav/HamburgerButton";
 import { space, type as typeTokens, type Palette } from "../../src/theme/tokens";
 import { useTheme } from "../../src/theme/useTheme";
 import { useHaptics } from "../../src/hooks/useHaptics";
+
+const welcomeImage = require("../../assets/images/welcome.webp");
 
 export default function HomeRoute() {
   const router = useRouter();
@@ -17,6 +20,10 @@ export default function HomeRoute() {
 
   return (
     <ScreenFrame>
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <FocalImage source={welcomeImage} />
+        <View style={styles.overlay} />
+      </View>
       <HamburgerButton />
       <View style={styles.center}>
         <View style={styles.measure}>
@@ -47,6 +54,10 @@ export default function HomeRoute() {
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
+    overlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: "rgba(14, 15, 18, 0.55)",
+    },
     center: {
       flex: 1,
       alignItems: "center",

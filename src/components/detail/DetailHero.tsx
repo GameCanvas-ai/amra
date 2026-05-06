@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Image, type ImageSourcePropType, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -9,6 +9,8 @@ import Animated, {
 import { space, type, type Palette } from "../../theme/tokens";
 import { useTheme } from "../../theme/useTheme";
 import { Hairline } from "../primitives/Hairline";
+import { FocalImage } from "../primitives/FocalImage";
+import type { HeroImage } from "../../data/heroImages";
 
 type Props = {
   title: string;
@@ -16,7 +18,7 @@ type Props = {
   kicker: string;
   scrollY: SharedValue<number>;
   height: number;
-  heroImage?: ImageSourcePropType;
+  heroImage?: HeroImage;
 };
 
 export function DetailHero({ title, subTitle, kicker, scrollY, height, heroImage }: Props) {
@@ -39,7 +41,7 @@ export function DetailHero({ title, subTitle, kicker, scrollY, height, heroImage
     <View style={[styles.outer, { height, pointerEvents: "none" }]}>
       {heroImage ? (
         <Animated.View style={[StyleSheet.absoluteFill, imageStyle]} pointerEvents="none">
-          <Image source={heroImage} style={StyleSheet.absoluteFill} resizeMode="cover" />
+          <FocalImage source={heroImage.source} {...(heroImage.focal ? { focal: heroImage.focal } : {})} />
           <View style={styles.imageOverlay} />
         </Animated.View>
       ) : null}

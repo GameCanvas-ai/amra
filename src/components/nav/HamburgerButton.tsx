@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { DrawerActions } from "@react-navigation/native";
@@ -8,6 +7,8 @@ import { DrawerActions } from "@react-navigation/native";
 import { space, type Palette } from "../../theme/tokens";
 import { useTheme } from "../../theme/useTheme";
 import { useHaptics } from "../../hooks/useHaptics";
+
+const logoMark = require("../../../assets/images/logo-mark.png");
 
 export function HamburgerButton() {
   const insets = useSafeAreaInsets();
@@ -30,7 +31,7 @@ export function HamburgerButton() {
         accessibilityRole="button"
         accessibilityLabel="Open menu"
       >
-        <Ionicons name="menu" size={24} color={palette.textPrimary} />
+        <Image source={logoMark} style={styles.logo} resizeMode="contain" />
       </Pressable>
     </View>
   );
@@ -55,5 +56,9 @@ const makeStyles = (palette: Palette) =>
     },
     buttonPressed: {
       opacity: 0.55,
+    },
+    logo: {
+      width: 24,
+      height: 24,
     },
   });

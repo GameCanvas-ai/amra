@@ -7,6 +7,7 @@
     "scheme": "amra",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
+    "icon": "./assets/images/icon.png",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.amra.lore",
@@ -17,11 +18,16 @@
     "android": {
       "package": "app.amra.lore",
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundColor": "#0e0f12"
+      }
     },
     "web": {
       "output": "static",
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",
