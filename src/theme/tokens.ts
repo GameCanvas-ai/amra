@@ -51,6 +51,19 @@ export const lightPalette: Palette = {
   scrim: "rgba(245, 243, 238, 0.6)",
 };
 
+// Fixed colors for text and chrome overlaid on hero photography.
+// The hero images are always dark, so this palette never theme-shifts —
+// otherwise dark text in light mode would vanish into the photo.
+export const onImage = {
+  textPrimary: "#f4f4f6",
+  textSecondary: "#d8d4cc",
+  textMuted: "#b0aca4",
+  textFaint: "#8a8680",
+  dener: "#b8c4dc",
+  iothas: "#e88080",
+  scrim: "rgba(14, 15, 18, 0.55)",
+} as const;
+
 export const fonts = {
   sans: "Inter_400Regular",
   sansMed: "Inter_500Medium",
