@@ -301,7 +301,7 @@ function writeHeroRegistry(): { tomes: number; subs: number } {
 const lore = build();
 
 if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
-writeFileSync(OUT_FILE, JSON.stringify(lore, null, 2), "utf8");
+writeFileSync(OUT_FILE, JSON.stringify(lore), "utf8");
 
 const heroes = writeHeroRegistry();
 
